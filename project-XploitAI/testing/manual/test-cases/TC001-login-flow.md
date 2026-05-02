@@ -1,97 +1,125 @@
-Test Execution Report — TC001 Login Flow
+# TC001 — Login Flow
 
-Test Case ID: TC001
-Test Case Name: Login Flow Validation
-Module: Authentication
-Type: Manual UI Testing
-Priority: High
-Severity if Failed: Critical
-Environment: Local Development
-Application URL: http://localhost:8000/login
-Browser:  Chrome 
-OS:  Windows  11 
-Tester: Donal Jojo
-Execution Date: 1-may-2026
-Status: ✅ Pass
+| Field | Details |
+|-------|---------|
+| **Test Case ID** | TC001 |
+| **Test Case Name** | Login Flow Validation |
+| **Module** | Authentication |
+| **Type** | Manual UI |
+| **Priority** | High |
+| **Severity if Failed** | Critical |
+| **Created By** | Donal Jojo |
+| **Created Date** | 2026-05-01 |
+| **Last Updated** | 2026-05-01 |
 
-Objective
+---
 
-Verify that the login functionality accepts valid credentials, rejects invalid credentials, and properly redirects authenticated users to the dashboard.
+## Objective
 
-Preconditions
-Application server is running locally on port 8000.
-Database connection active.
-Login module enabled.
-Test user exists in database.
-Browser cache cleared / fresh session.
-No active logged-in session.
-Test Data
-Field	Value
-Valid Email	test@example.com
-Valid Password	********
-Invalid Password	wrongpassword123
+Verify that the login page accepts valid credentials, rejects invalid ones,
+and correctly redirects authenticated users to the dashboard.
 
-(Use masked passwords in reports—never expose real passwords.)
+---
 
-Execution Steps & Results
-Step	Action	Expected Result	Actual Result	Status
-1	Navigate to /login	Login page loads successfully	Login page loaded correctly with email/password fields visible	✅ Pass
-2	Enter valid email + password	Fields accept input	Inputs accepted normally	✅ Pass
-3	Click Sign In	Redirect to /dashboard	Successfully redirected to dashboard page	✅ Pass
-4	Enter wrong password	Error message shown	Validation error displayed correctly; login blocked	✅ Pass
-UI Validation Checks
+## Preconditions
 
-Verified:
+- App running at `http://localhost:8000`
+- Database is active and seeded
+- A valid test user exists in the database
+- Browser cache cleared — fresh session (no existing login)
+- No active logged-in session before test begins
 
-✅ Login page layout loads properly
-✅ Email textbox functional
-✅ Password textbox masks characters
-✅ Sign In button clickable
-✅ Proper redirect after authentication
-✅ Error message visible on invalid login
-✅ Session created after successful login
-✅ Unauthorized access prevented with wrong password
+---
 
-Security Validation
+## Test Data
 
-Checked:
+| Field | Valid Value | Invalid Value |
+|-------|-------------|---------------|
+| Email / Username | `test@example.com` | `fake@example.com` |
+| Password | `[use your test password]` | `wrongpassword123` |
 
-✅ Password hidden during typing
-✅ Invalid credentials rejected
-✅ No sensitive data shown in error message
-✅ Authentication required for dashboard access
-✅ Session established securely after login
+> ⚠️ Never write real passwords in test case files. Use masked values or reference a secure vault.
 
+---
 
-Evidence / Screenshots
-Valid Credentials Entry
+## Test Steps
 
-QA_DOCS/project-XploitAI/testing/manual/screenshots/tc001_valid_cred.png
+| Step | Action | Expected Result |
+|------|--------|-----------------|
+| 1 | Navigate to `http://localhost:8000/login` | Login page loads. Email and password fields visible. Sign In button present. |
+| 2 | Enter **valid** email and password | Fields accept input. Password is masked (dots/asterisks). |
+| 3 | Click **Sign In** | User is redirected to `/dashboard` or `/`. Dashboard content is visible. |
+| 4 | Log out and return to `/login` | Login page is shown again. No session persists. |
+| 5 | Enter **valid email** but **wrong password** | Error message shown. User stays on login page. No redirect. |
+| 6 | Enter **non-existent email** and any password | Error message shown. No account details leaked in error. |
+| 7 | Leave both fields blank and click Sign In | Validation error shown for both fields. Form does not submit. |
+| 8 | Attempt to access `/` directly while logged out | Redirected to `/login?next=/`. Not shown dashboard. |
 
-Successful Login
+---
 
-QA_DOCS/project-XploitAI/testing/manual/screenshots/tc001_success_login.png
+## UI Checks (observe during steps above)
 
-Wrong Credentials Entry
+- [ ] Login page layout renders without broken elements
+- [ ] Email field is functional and accepts text
+- [ ] Password field masks characters while typing
+- [ ] Sign In button is clickable and triggers submission
+- [ ] Error messages are clearly visible and user-friendly
+- [ ] No sensitive data (stack trace, DB errors) shown on failure
+- [ ] Redirect after login goes to the correct page
 
-QA_DOCS/project-XploitAI/testing/manual/screenshots/tc001_wrong_cred.png
+---
 
-Error Message
+## Security Checks (observe during steps above)
 
-QA_DOCS/project-XploitAI/testing/manual/screenshots/tc001_error_login.png
+- [ ] Password is never shown in plain text
+- [ ] Error message does not reveal whether email exists or not
+- [ ] No redirect to unintended pages after login
+- [ ] Session is created only after successful login
 
-Observations
-Login flow works as expected.
-No UI alignment issues observed.
-Redirect behavior correct.
-Error handling clear and understandable.
-No crash / blank page / unexpected response.
-Defects Found
+---
 
-None
+## Screenshots to Capture
 
-Final Result
+| What to capture | Suggested filename |
+|-----------------|-------------------|
+| Login page before any input | `tc001_login_page.png` |
+| Valid credentials entered (password masked) | `tc001_valid_cred.png` |
+| Dashboard after successful login | `tc001_success_login.png` |
+| Wrong password entered | `tc001_wrong_cred.png` |
+| Error message displayed | `tc001_error_msg.png` |
+| Blank form validation error | `tc001_blank_validation.png` |
 
-PASS ✅
+---
 
-Authentication module behaves according to expected functional requirements.
+## Pass Criteria
+
+All of the following must be true for this test to PASS:
+
+- Valid credentials → redirect to dashboard ✓
+- Wrong password → error shown, no redirect ✓
+- Blank form → validation error shown ✓
+- Logged-out user → cannot access dashboard directly ✓
+- Password always masked ✓
+
+## Fail Criteria
+
+Test FAILS if any of the following occur:
+
+- Valid credentials do not redirect to dashboard
+- Wrong password still logs the user in
+- Any page shows a Django stack trace or database error
+- Password is visible in plain text at any point
+- Blank form submits without validation
+
+---
+
+## Result (fill in after execution)
+
+| Field | Value |
+|-------|-------|
+| **Executed By** | |
+| **Execution Date** | |
+| **Status** | ⬜ Pass / ⬜ Fail / ⬜ Blocked |
+| **Result File** | `results/TC001-login-flow-result.md` |
+| **Defects Found** | |
+| **Notes** | |
