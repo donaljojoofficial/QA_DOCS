@@ -92,6 +92,7 @@ Verify that an authenticated user can initiate an attack or quick test and is re
 - Attack simulation initialization completes seamlessly.
 - The system generates the initial state and redirects correctly without any latency or backend stack traces.
 - UI properly communicates the transition from setup to the active attack tracking page.
+- No validation error
 
 ---
 
