@@ -44,11 +44,11 @@ Verify that attack runs appear in history, can be opened from history, and can b
 | 1 | Navigate to `/history/` | History page loads and shows existing attack runs. |
 | 2 | Locate Run A and Run B | Each run displays enough identifying data such as name, target, status, or date. |
 | 3 | Open Run A from history | Browser navigates to `/attack/<pk>/` for Run A. |
-| 4 | Return to `/history/` | History page still lists Run A and Run B. |
-| 5 | Delete Run B using the run-specific delete action | Run B is removed after confirmation, if confirmation exists. |
-| 6 | Confirm Run A still exists | Run A remains visible and can still be opened. |
-| 7 | Use `/history/delete-all/` only in a disposable test environment | All attack history for the test scope is removed or confirmation is required before removal. |
-| 8 | Refresh `/history/` | Page reflects the updated list without stale deleted entries. |
+| 4 | Access `/attack/<pk>/replay/` for Run A | Replay view loads successfully, showing the attack timeline events. |
+| 5 | Return to `/history/` | History page still lists Run A and Run B. |
+| 6 | Delete Run B using the run-specific delete action | Run B is removed after confirmation. |
+| 7 | Confirm Run A still exists | Run A remains visible and can still be opened. |
+| 8 | Use `/history/delete-all/` only in a disposable test environment | All attack history is removed. |
 
 ---
 

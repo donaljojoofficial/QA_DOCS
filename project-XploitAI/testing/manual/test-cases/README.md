@@ -10,7 +10,7 @@
 | TC006 | Attack Approval and Control Actions | Attack Control | High |
 | TC007 | Attack History and Delete | Attack History | Medium |
 | TC008 | Report Generation and Latest Report | Reporting | Medium |
-| TC009 | Attack Chat API | AI Chat | Medium |
+| TC009 | Dashboard Assistant | AI Assistant | Medium |
 | TC010 | Profile Password Change and Password Reset | Authentication | High |
 
 ## Suggested Execution Order
@@ -21,7 +21,7 @@
 4. TC002 - Start Attack Simulation
 5. TC006 - Attack Approval and Control Actions
 6. TC008 - Report Generation and Latest Report
-7. TC009 - Attack Chat API
+7. TC009 - Dashboard Assistant
 8. TC007 - Attack History and Delete
 9. TC004 - Target Management
 10. TC010 - Profile Password Change and Password Reset

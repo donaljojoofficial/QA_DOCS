@@ -3,9 +3,9 @@
 | Field | Details |
 |-------|---------|
 | **Test Case ID** | TC009 |
-| **Test Case Name** | Attack Chat API |
-| **Module** | AI Chat |
-| **Type** | Manual API / UI |
+| **Test Case Name** | Dashboard Assistant |
+| **Module** | AI Assistant |
+| **Type** | Manual UI |
 | **Priority** | Medium |
 | **Severity if Failed** | Major |
 | **Created By** | Donal Jojo |
@@ -32,13 +32,11 @@ Verify that authenticated users can ask attack-context questions through the cha
 
 ## Test Data
 
-| Request | Value |
-|---------|-------|
-| Ask Endpoint | `POST /attack-chat/ask/` |
-| Reset Endpoint | `POST /attack-chat/reset/` |
-| Valid Message | `What did the reconnaissance phase find?` |
-| Empty Message | blank string |
-| Content-Type | `application/json` |
+| Field | Value |
+|-------|-------|
+| Assistant Route | `/assistant/` |
+| Valid Message | `Summarize the recent recon phase.` |
+| Empty Message | ` ` |
 
 ---
 
@@ -46,33 +44,27 @@ Verify that authenticated users can ask attack-context questions through the cha
 
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Open an attack detail page with chat widget, if available | Chat input and send/reset controls are visible. |
-| 2 | Send valid chat message through UI or `POST /attack-chat/ask/` | Response returns JSON with `reply`. UI displays the reply. |
-| 3 | Ask a follow-up question | Response uses attack context where available. |
-| 4 | Send `POST /attack-chat/reset/` | Request returns success and context is reset. |
-| 5 | Send empty message to ask endpoint | Validation error is returned or UI prevents submission. |
-| 6 | Send request without `Content-Type: application/json` | Request is rejected or handled with controlled validation. |
-| 7 | Send request without CSRF token | Request is rejected with CSRF/forbidden response. |
-| 8 | Log out and retry ask endpoint | Request redirects to login or returns unauthorized/forbidden response. |
+| 1 | Navigate to `/assistant/` | Dashboard assistant page loads with chat input controls visible. |
+| 2 | Send a valid message through the UI | Assistant responds using attack context or available state data. |
+| 3 | Ask a follow-up question | Response indicates conversational memory is maintained. |
+| 4 | Send empty message to input | Validation error is shown or submission is disabled. |
+| 5 | Log out and navigate to `/assistant/` | User is redirected to `/login/`. |
 
 ---
 
 ## API Checks
 
-- [ ] Valid ask request returns JSON
-- [ ] JSON response contains `reply`
-- [ ] Empty or malformed body does not create server error
-- [ ] Reset endpoint returns success
+- [ ] Valid assistant request returns expected context
+- [ ] Message input handles empty text gracefully
 - [ ] Provider-unavailable errors are user-friendly and controlled
 
 ---
 
 ## Security Checks
 
-- [ ] Chat API requires authentication
+- [ ] Assistant endpoint requires authentication
 - [ ] CSRF protection is enforced for POST requests
-- [ ] Chat response does not reveal API keys or environment secrets
-- [ ] Malformed JSON does not expose traceback
+- [ ] Assistant response does not reveal API keys or environment secrets
 - [ ] User cannot access another user's private attack context
 
 ---
@@ -81,11 +73,9 @@ Verify that authenticated users can ask attack-context questions through the cha
 
 | What to capture | Suggested filename |
 |-----------------|-------------------|
-| Chat widget before message | `tc009_chat_widget.png` |
-| Chat response in UI | `tc009_chat_response_ui.png` |
-| Valid JSON response | `tc009_valid_json_response.png` |
-| Empty message validation | `tc009_empty_message_validation.png` |
-| CSRF failure evidence | `tc009_csrf_failure.png` |
+| Assistant UI before message | `tc009_assistant_ui.png` |
+| Assistant response | `tc009_assistant_response.png` |
+| Empty message validation | `tc009_assistant_empty_validation.png` |
 
 ---
 
@@ -98,11 +88,10 @@ Verify that authenticated users can ask attack-context questions through the cha
 
 ## Fail Criteria
 
-- Valid chat request fails unexpectedly
-- API returns malformed JSON
-- Invalid requests trigger server errors
-- Logged-out users can use chat endpoint
-- Chat leaks sensitive configuration
+- Valid assistant request fails unexpectedly
+- Invalid requests trigger 500 server errors
+- Logged-out users can use assistant
+- Assistant leaks sensitive configuration
 
 ---
 

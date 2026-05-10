@@ -34,7 +34,7 @@ Verify that protected pages require login and that admin-only configuration acce
 | User Type | Expected Access |
 |-----------|-----------------|
 | Logged-out visitor | Public auth pages only |
-| Regular user | Dashboard, profile, targets, executors, history, start attack |
+| Regular user | Dashboard, profile, targets, executors, history, assistant, start attack, quick test |
 | Admin user | All regular user pages plus `/configuration/` |
 
 ---
@@ -45,10 +45,10 @@ Verify that protected pages require login and that admin-only configuration acce
 |------|--------|-----------------|
 | 1 | In a logged-out session, navigate to `/` | Redirected to `/login?next=/` or login page. Dashboard is not visible. |
 | 2 | Logged out, navigate to `/profile/` | Redirected to login page. |
-| 3 | Logged out, navigate to `/start/` | Redirected to login page. |
+| 3 | Logged out, navigate to `/start/`, `/quick-test/start/`, or `/assistant/` | Redirected to login page. |
 | 4 | Log in as regular user | Redirected to dashboard. |
 | 5 | As regular user, navigate to `/configuration/` | Access is denied or redirected. Configuration secrets page is not visible. |
-| 6 | As regular user, navigate to `/targets/`, `/executors/`, and `/history/` | Pages load successfully. |
+| 6 | As regular user, navigate to `/targets/`, `/executors/`, `/history/`, and `/assistant/` | Pages load successfully. |
 | 7 | Log out regular user | Session is cleared and login page is shown. |
 | 8 | Log in as Admin-group user | Redirected to dashboard. |
 | 9 | As Admin user, navigate to `/configuration/` | Configuration page loads successfully. |

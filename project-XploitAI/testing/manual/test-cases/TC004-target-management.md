@@ -50,7 +50,7 @@ Verify that authenticated users can view and manage target records and that inva
 | 5 | Update the target description | Updated value is saved and displayed. |
 | 6 | Attempt to create or update a target with invalid URL `not-a-url` | Validation error is shown. Invalid target is not saved. |
 | 7 | Attempt to submit required fields blank | Required-field validation is shown. |
-| 8 | Delete the test target | Target is removed from the list after confirmation, if confirmation exists. |
+| 8 | Delete the test target | Target is removed from the list after confirmation. |
 
 ---
 

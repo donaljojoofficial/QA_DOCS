@@ -43,12 +43,12 @@ Verify that generated attack plans require human approval where expected and tha
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Open `/attack/<pk>/` for a newly created simulation run | Attack detail page shows current phase, generated plan, and approval status. |
-| 2 | Review available plan steps | Steps are readable and action names are from the allowed registry. |
+| 2 | Navigate to `/attack/<pk>/plan/` | Steps are readable and action names are from the allowed registry. |
 | 3 | Click Approve Plan | POST succeeds and attack status changes to `RUNNING` or equivalent. |
-| 4 | Refresh attack detail page | Updated status persists. Execution progress or command log area is visible. |
+| 4 | Refresh attack detail page or go to `/attack/<pk>/command-logs/` | Updated status persists. Command logs populate as execution proceeds. |
 | 5 | Click Stop | Attack status changes to `STOPPED` or equivalent. Stop reason or stopped indicator is shown. |
 | 6 | Click Resume | Attack status changes away from stopped state and resumes execution or returns to approval as designed. |
-| 7 | If a phase has failed, click Retry Phase | Current failed phase is retried and status/plan updates appropriately. |
+| 7 | Check `/attack/<pk>/phase-reviews/` if a phase completes | Phase review data is accessible and readable. |
 | 8 | Attempt direct POST to approve/stop/resume while logged out | Request is rejected or redirected to login. |
 
 ---
